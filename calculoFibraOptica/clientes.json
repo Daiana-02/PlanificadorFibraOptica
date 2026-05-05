@@ -1,0 +1,26 @@
+[
+  {
+    "nombre": "Marcos",
+    "provincia": "Buenos Aires",
+    "latitud": -66.0,
+    "longitud": -32.0
+  },
+  {
+    "nombre": "Tomas",
+    "provincia": "Mendoza",
+    "latitud": -35.0,
+    "longitud": -22.1
+  },
+  {
+    "nombre": "Sofia",
+    "provincia": "Tierra del fuego",
+    "latitud": -37.0,
+    "longitud": -37.0
+  },
+  {
+    "nombre": "ProbemosLatitud",
+    "provincia": "Cordoba",
+    "latitud": -6.66666666E8,
+    "longitud": -6.66666666E8
+  }
+]
