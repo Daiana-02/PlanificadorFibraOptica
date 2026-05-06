@@ -17,6 +17,21 @@ public class CalculoDistancia {
 		return radioDeLaTierra * anguloCentral;
 	}
 	
+	public static double calcularCosto(double distancia, double costoPorKm, double porcentajeAumento, double costoFijo, boolean distintasProvincias) {
+	    double costo = distancia * costoPorKm;
+
+	    // SUPERA 300 KM → AUMENTA
+	    if (distancia > 300) {
+	        costo += costo * (porcentajeAumento / 100);
+	    }
+
+	    // SI ES PROVINCIA DISTINTA → COSTO FIJO
+	    if (distintasProvincias) {
+	        costo += costoFijo;
+	    }
+
+	    return costo;
+	}
 	
 	
 	public static void main(String[] Argentina) {
@@ -33,7 +48,19 @@ public class CalculoDistancia {
 		System.out.println("Buenos Aires a Ushuaia :" + calcularDistancia(buenosAires[0],buenosAires[1],ushuaia[0],ushuaia[1]));
 		System.out.println("Cordoba a Mendoza :" + calcularDistancia(cordoba[0],cordoba[1],mendoza[0],mendoza[1]));
 		System.out.println("Salta a Ushuaia :" + calcularDistancia(salta[0],salta[1],ushuaia[0],ushuaia[1]));
+		
+		// PRUEBAS DE DISTANCIA COSTO
+		double distancia = calcularDistancia(buenosAires[0], buenosAires[1], cordoba[0], cordoba[1]);
 
+		double costo = calcularCosto(
+		        distancia,
+		        10,     // costo por km
+		        20,     // % aumento
+		        500,    // costo fijo
+		        true    // distintas provincias
+		);
+
+		System.out.println("Costo conexión: $" + costo);
 		
 	}
 	
