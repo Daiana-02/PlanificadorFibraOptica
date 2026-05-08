@@ -90,9 +90,21 @@ public class Controlador {
 				return;
 			}
 
+			// 1. Calculamos la matemática pura (El Algoritmo de Prim)
 			List<Conexion> redResultante = AGM.calcularPrim(localidades, costoKm, porcentaje, costoFijo);
 			
-			mostrarInfo("Botón funcionando. Calculando AGM para " + localidades.size() + " localidades...");
+			// 2. Calculamos el costo total para mostrarlo
+			double costoTotal = 0;
+			for(Conexion c : redResultante) {
+				costoTotal += c.getCosto();
+			}
+			
+			// 3. Mostramos el mensaje de éxito
+			mostrarInfo(String.format("¡Red calculada con éxito!\nCosto Total: $%.2f", costoTotal));
+			
+			// 4. ABRIMOS EL MAPA PASÁNDOLE LOS DATOS
+			VentanaMapa mapaVisual = new VentanaMapa(localidades, redResultante);
+			mapaVisual.setVisible(true);
 			
 		} catch (NumberFormatException e) {
 			mostrarError("Los parámetros de costo deben ser valores numéricos válidos.");

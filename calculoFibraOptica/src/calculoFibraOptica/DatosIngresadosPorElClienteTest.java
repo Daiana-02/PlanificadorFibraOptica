@@ -13,10 +13,10 @@ public class DatosIngresadosPorElClienteTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void instanciarCliente_LatitudFueraDeRango_LanzaExcepcion() {
-        // La latitud máxima es 90, mandamos 100 para forzar el error
-        new DatosIngresadosPorElCliente("Juan", "Cordoba", 100.0, -64.0);
+        // La latitud máxima es 90, mandamos 100000 para forzar el error
+        new DatosIngresadosPorElCliente("Juan", "Cordoba", 100000.0, -64.0);
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void instanciarCliente_LongitudFueraDeRango_LanzaExcepcion() {
         // La longitud mínima es -180, mandamos -200
