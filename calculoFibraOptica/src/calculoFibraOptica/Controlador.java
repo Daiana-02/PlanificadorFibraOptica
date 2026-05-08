@@ -1,29 +1,20 @@
 package calculoFibraOptica;
 
 import javax.swing.*;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.util.List;
 
-
-//Aca se uso el tipo de archivo csv 
 public class Controlador {
-	private static final String archivo_CSV = "clientes.csv";
-	private static final String separador = ",";
-	private static final String cabecera_CSV = "Nombre,Provincia,Latitud,Longitud";
-	
-	
+
 	private final VentanaPrincipal vista;
-	
 	
 	public Controlador(VentanaPrincipal vista) {
 		this.vista = vista;
 		DatosIngresadosPorElCliente.cargarDesdeJson();
-		inicializarArchivo();
 	}
 	
 	public boolean procesarDatos(String nombre, String provincia, String latitudCadena, String longitudCadena) {
-		if(estaVacio(nombre) || estaVacio(provincia) || estaVacio(latitudCadena) || estaVacio(longitudCadena )) {
+		if(estaVacio(nombre) || estaVacio(provincia) || estaVacio(latitudCadena) || estaVacio(longitudCadena)) {
 			mostrarError("Todos los campos son obligatorios.");
 			return false;
 		}
@@ -33,9 +24,10 @@ public class Controlador {
 			latitud = Double.parseDouble(latitudCadena.replace(",",".").trim());
 			longitud = Double.parseDouble(longitudCadena.replace(",",".").trim());
 		} catch (NumberFormatException e) {
-			mostrarError("Latitud y longitud deben ser numeros validos. \n" + "Ejemplo: -34.303722");
+			mostrarError("Latitud y longitud deben ser numeros validos. \nEjemplo: -34.303722");
 			return false;
 		}
+		
 		DatosIngresadosPorElCliente cliente;
 		try {
 			cliente = new DatosIngresadosPorElCliente(nombre, provincia, latitud, longitud);
@@ -45,12 +37,12 @@ public class Controlador {
 		}
 		
 		try {
-			guardarEnCSV(cliente);
 			DatosIngresadosPorElCliente.guardarEnJson();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			mostrarError("No se pudo guardar el archivo:\n" + e.getMessage());
 			return false;
 		}
+		
 		mostrarInfo("Cliente guardado correctamente.\n" + cliente);
 		return true;
 	}
@@ -67,41 +59,12 @@ public class Controlador {
 		JOptionPane.showMessageDialog(vista, mensaje, "Operacion exitosa", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	private void inicializarArchivo() {
-		File archivo = new File(archivo_CSV);
-		if(!archivo.exists()) {
-			try (BufferedWriter bw = new BufferedWriter( new OutputStreamWriter(new FileOutputStream(archivo,false), StandardCharsets.UTF_8))) {
-				bw.write(cabecera_CSV);
-				bw.newLine();
-			} catch (IOException e) {
-				mostrarError("No se pudo crear el archivo CSV>\n" + e.getMessage());
-			}
-		}
-	}
-	
-	
-	private void guardarEnCSV(DatosIngresadosPorElCliente cliente) throws IOException {
-		try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo_CSV,true), StandardCharsets.UTF_8))) {
-			String linea = String.join(separador, escaparCSV(cliente.obtenerNombre()), escaparCSV(cliente.obtenerProvincia()), String.valueOf(cliente.obtenerLatitud()),
-					String.valueOf(cliente.obtenerLongitud()));
-			bw.write(linea);
-			bw.newLine();
-		}
-	}
-	
-	private String escaparCSV(String valor) {
-		if (valor.contains(separador) || valor.contains("\"") || valor.contains("\n")) {
-			return "\"" + valor.replace("\"","\"\"") + "\"";
-		}
-		return valor;
-	}
-	
 	public List<DatosIngresadosPorElCliente> obtenerHistorial(){
 		return DatosIngresadosPorElCliente.obtenerHistorial();
 	}
 	
 	public String obtenerRutaArchivo() {
-		return new File(archivo_CSV).getAbsolutePath();
+		return new File("clientes.json").getAbsolutePath();
 	}
 	
 	public void mostrarClientes() {
@@ -109,36 +72,30 @@ public class Controlador {
 		if(historial.isEmpty()) {
 			mostrarInfo("No hay clientes registrados todavia");
 			return;
-		 }
+		}
 		VentanaClientes ventana = new VentanaClientes(vista.frame, historial);
 		ventana.setVisible(true);
 	}
 	
 	public void procesarCalculoRed(String costoKmCadena, String porcentajeCadena, String costoProvinciaCadena) {
-	    try {
-	        // 1. Convertimos los textos a números
-	        double costoKm = Double.parseDouble(costoKmCadena.trim());
-	        double porcentaje = Double.parseDouble(porcentajeCadena.trim());
-	        double costoFijo = Double.parseDouble(costoProvinciaCadena.trim());
-	        
-	        // 2. Obtenemos la lista de clientes
-	        List<DatosIngresadosPorElCliente> localidades = DatosIngresadosPorElCliente.obtenerHistorial();
-	        
-	        if (localidades.size() < 2) {
-	            mostrarError("Se necesitan al menos 2 localidades registradas para calcular la red.");
-	            return;
-	        }
+		try {
+			double costoKm = Double.parseDouble(costoKmCadena.trim());
+			double porcentaje = Double.parseDouble(porcentajeCadena.trim());
+			double costoFijo = Double.parseDouble(costoProvinciaCadena.trim());
+			
+			List<DatosIngresadosPorElCliente> localidades = DatosIngresadosPorElCliente.obtenerHistorial();
+			
+			if (localidades.size() < 2) {
+				mostrarError("Se necesitan al menos 2 localidades registradas para calcular la red.");
+				return;
+			}
 
-	        // 3. Acá llamaremos a ArbolGeneradorMinimo (lo dejaremos comentado hasta que lo agregues)
-	        // List<Conexion> redResultante = ArbolGeneradorMinimo.calcularPrim(localidades, costoKm, porcentaje, costoFijo);
-	        
-	        // Mostrar resultado temporal para confirmar que los botones funcionan
-	        mostrarInfo("Botón funcionando. Calculando AGM para " + localidades.size() + " localidades...");
-	        
-	    } catch (NumberFormatException e) {
-	        mostrarError("Los parámetros de costo deben ser valores numéricos válidos.");
-	    }
+			List<Conexion> redResultante = AGM.calcularPrim(localidades, costoKm, porcentaje, costoFijo);
+			
+			mostrarInfo("Botón funcionando. Calculando AGM para " + localidades.size() + " localidades...");
+			
+		} catch (NumberFormatException e) {
+			mostrarError("Los parámetros de costo deben ser valores numéricos válidos.");
+		}
 	}
-	
-	
 }
