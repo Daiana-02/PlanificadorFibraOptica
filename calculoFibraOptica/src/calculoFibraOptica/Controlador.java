@@ -114,4 +114,31 @@ public class Controlador {
 		ventana.setVisible(true);
 	}
 	
+	public void procesarCalculoRed(String costoKmCadena, String porcentajeCadena, String costoProvinciaCadena) {
+	    try {
+	        // 1. Convertimos los textos a números
+	        double costoKm = Double.parseDouble(costoKmCadena.trim());
+	        double porcentaje = Double.parseDouble(porcentajeCadena.trim());
+	        double costoFijo = Double.parseDouble(costoProvinciaCadena.trim());
+	        
+	        // 2. Obtenemos la lista de clientes
+	        List<DatosIngresadosPorElCliente> localidades = DatosIngresadosPorElCliente.obtenerHistorial();
+	        
+	        if (localidades.size() < 2) {
+	            mostrarError("Se necesitan al menos 2 localidades registradas para calcular la red.");
+	            return;
+	        }
+
+	        // 3. Acá llamaremos a ArbolGeneradorMinimo (lo dejaremos comentado hasta que lo agregues)
+	        // List<Conexion> redResultante = ArbolGeneradorMinimo.calcularPrim(localidades, costoKm, porcentaje, costoFijo);
+	        
+	        // Mostrar resultado temporal para confirmar que los botones funcionan
+	        mostrarInfo("Botón funcionando. Calculando AGM para " + localidades.size() + " localidades...");
+	        
+	    } catch (NumberFormatException e) {
+	        mostrarError("Los parámetros de costo deben ser valores numéricos válidos.");
+	    }
+	}
+	
+	
 }
