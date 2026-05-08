@@ -40,5 +40,11 @@
     "provincia": "Ciudad de Buenos Aires",
     "latitud": -34.6086,
     "longitud": -58.3736
+  },
+  {
+    "nombre": "abcs",
+    "provincia": "BS AS",
+    "latitud": -37.456,
+    "longitud": -58.543
   }
 ]
