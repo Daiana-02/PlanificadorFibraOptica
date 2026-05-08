@@ -5,6 +5,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+
+//Aca se uso el tipo de archivo csv 
 public class Controlador {
 	private static final String archivo_CSV = "clientes.csv";
 	private static final String separador = ",";
