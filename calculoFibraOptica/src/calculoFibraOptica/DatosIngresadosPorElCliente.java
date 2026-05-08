@@ -37,22 +37,17 @@ public class DatosIngresadosPorElCliente {
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	
 	
-	
 	private static final List<DatosIngresadosPorElCliente> historial = new ArrayList<>();
 	
 	public DatosIngresadosPorElCliente(String nombre, String provincia, double latitud, double longitud) {
-		this.nombre = nombre;
-		this.provincia = provincia;
+		definirNombre(nombre);       
+	    definirProvincia(provincia); 
 		definirLatitud(latitud);
 		definirLongitud(longitud);
 		
 		
 		historial.add(this);
 	}
-	
-	public DatosIngresadosPorElCliente() {		
-	}
-	
 	
 	
 	/*
