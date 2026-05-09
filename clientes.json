@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Buenos Aires",
+    "provincia": "CABA",
+    "latitud": -34.6037,
+    "longitud": -58.3816
+  },
+  {
+    "nombre": "Cordoba",
+    "provincia": "Cordoba",
+    "latitud": -31.4135,
+    "longitud": -64.1811
+  },
+  {
+    "nombre": "Mendoza",
+    "provincia": "Mendoza",
+    "latitud": -32.8908,
+    "longitud": -68.8272
+  },
+  {
+    "nombre": "Salta",
+    "provincia": "Salta",
+    "latitud": -24.7859,
+    "longitud": -65.4117
+  },
+  {
+    "nombre": "Ushuaia",
+    "provincia": "Tierra del Fuego",
+    "latitud": -54.8019,
+    "longitud": -68.3030
+  }
+]
