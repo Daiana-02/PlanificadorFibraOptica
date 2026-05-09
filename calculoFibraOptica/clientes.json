@@ -1,0 +1,50 @@
+[
+  {
+    "nombre": "Caballito",
+    "provincia": "CABA",
+    "latitud": -34.61667,
+    "longitud": -58.45
+  },
+  {
+    "nombre": "Agronomia",
+    "provincia": "CABA",
+    "latitud": -34.6,
+    "longitud": -58.4833
+  },
+  {
+    "nombre": "Retiro",
+    "provincia": "CABA",
+    "latitud": -34.5911,
+    "longitud": -58.375
+  },
+  {
+    "nombre": "Flores",
+    "provincia": "CABA",
+    "latitud": -34.6333,
+    "longitud": -58.4667
+  },
+  {
+    "nombre": "Chacarita",
+    "provincia": "CABA",
+    "latitud": -34.5861,
+    "longitud": -58.4528
+  },
+  {
+    "nombre": "Cabildo",
+    "provincia": "CABA",
+    "latitud": -34.5592,
+    "longitud": -58.4592
+  },
+  {
+    "nombre": "Recoleta",
+    "provincia": "CABA",
+    "latitud": -34.5875,
+    "longitud": -58.395
+  },
+  {
+    "nombre": "Villa Urquiza",
+    "provincia": "CABA",
+    "latitud": -34.5721,
+    "longitud": -58.4872
+  }
+]
