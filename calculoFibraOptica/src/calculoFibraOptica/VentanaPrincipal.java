@@ -11,13 +11,14 @@ public class VentanaPrincipal extends JFrame {
 	private JTextField txtLatitud;
 	private JTextField txtLongitud;
 	
-    private JTextField txtCostoKm;
-    private JTextField txtPorcentaje;
-    private JTextField txtCostoProvincia;
+//    private JTextField txtCostoKm;
+//    private JTextField txtPorcentaje;
+//    private JTextField txtCostoProvincia;
     
     private JButton btnAgregar;
     private JButton btnLimpiar;
     private JButton btnVerClientes;
+    private JButton btnCalcular;
     
     private JLabel lblRutaArchivo;
     
@@ -38,6 +39,7 @@ public class VentanaPrincipal extends JFrame {
         controlador = new Controlador(this);
         lblRutaArchivo.setText("Archivo: " + controlador.obtenerRutaArchivo());
         frame.pack();
+        frame.setSize(700, 400);
         frame.setLocationRelativeTo(null);
     }
     
@@ -57,10 +59,13 @@ public class VentanaPrincipal extends JFrame {
         btnAgregar = new JButton("Agregar");
         btnLimpiar = new JButton("Limpiar");
         btnVerClientes = new JButton("Ver clientes registrados");
+        btnCalcular = new JButton("Calcular");
+     
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 0));
         panelBotones.add(btnAgregar);
         panelBotones.add(btnLimpiar);
+        panelBotones.add(btnCalcular);
         
         // LABEL ARCHIVO
         lblRutaArchivo = new JLabel(" ");
@@ -107,6 +112,7 @@ public class VentanaPrincipal extends JFrame {
         btnAgregar.addActionListener(e -> onAgregar());
         btnLimpiar.addActionListener(e -> limpiarFormulario());
         btnVerClientes.addActionListener(e -> controlador.mostrarClientes());
+        btnCalcular.addActionListener(e -> controlador.iniciarCalculo());
     }
     
     private void onAgregar() {

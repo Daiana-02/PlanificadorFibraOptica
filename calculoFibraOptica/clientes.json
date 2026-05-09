@@ -40,5 +40,29 @@
     "provincia": "Ciudad de Buenos Aires",
     "latitud": -34.6086,
     "longitud": -58.3736
+  },
+  {
+    "nombre": "trey",
+    "provincia": "fdgfh",
+    "latitud": 12.0,
+    "longitud": 12.0
+  },
+  {
+    "nombre": "sasfd",
+    "provincia": "dsaf",
+    "latitud": 12.0,
+    "longitud": 12.0
+  },
+  {
+    "nombre": "Delviso",
+    "provincia": "Buenos Aires",
+    "latitud": 32.0,
+    "longitud": 12.0
+  },
+  {
+    "nombre": "Jose c paz",
+    "provincia": "Buenos Aires",
+    "latitud": 12.0,
+    "longitud": 34.0
   }
 ]

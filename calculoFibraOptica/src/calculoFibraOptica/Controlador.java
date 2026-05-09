@@ -12,9 +12,11 @@ public class Controlador {
 	
 	
 	private final VentanaPrincipal vista;
+	private Negocio negocio;
 	
 	
 	public Controlador(VentanaPrincipal vista) {
+		negocio = new Negocio();
 		this.vista = vista;
 		DatosIngresadosPorElCliente.cargarDesdeJson();
 		inicializarArchivo();
@@ -50,7 +52,12 @@ public class Controlador {
 			return false;
 		}
 		mostrarInfo("Cliente guardado correctamente.\n" + cliente);
+		negocio.agregarVertices(nombre, provincia, latitud, longitud);
 		return true;
+	}
+	
+	public void iniciarCalculo() {
+		negocio.agregarLocalidades();
 	}
 	
 	private boolean estaVacio(String s) {
