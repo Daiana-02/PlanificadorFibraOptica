@@ -1,6 +1,8 @@
 package calculoFibraOptica;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Grafo {
 	private List<Localidad> localidades = new ArrayList<>();
@@ -12,20 +14,18 @@ public class Grafo {
 	}
 	
 	public void generarAristas(Double costoPorKm, Double porcentajeExtra, Double costoFijo) {
-		for (int actu = 0; actu < localidades.size()-1; actu++) {
-			for (int sig = actu + 1; sig < localidades.size(); sig++) {
+		for (int origen = 0; origen < localidades.size(); origen++) {
+			for (int destino = origen + 1; destino < localidades.size(); destino++) {
 
-				Localidad locA = localidades.get(actu);
-				Localidad locB = localidades.get(sig);
-				String provinciaA = locA.obtenerProvincia();
-				String provinciaB = locB.obtenerProvincia();
-				boolean mismaProvincia = provinciaA.equals(provinciaB);
+				Localidad locOrigen = localidades.get(origen);
+				Localidad locDestino = localidades.get(destino);
+				boolean mismaProvincia =locOrigen.obtenerProvincia().equals(locDestino.obtenerProvincia());
 				
-				Double distancia = calcularDistancia(locA.obtenerLatitud(), locA.obtenerLongitud(), locB.obtenerLatitud(), locB.obtenerLongitud());
+				Double distancia = calcularDistancia(locOrigen.obtenerLatitud(), locOrigen.obtenerLongitud(), locDestino.obtenerLatitud(), locDestino.obtenerLongitud());
 				Double costo = calcularCosto(distancia, costoPorKm, porcentajeExtra, costoFijo, mismaProvincia);
 				
 				System.out.println(costo);
-				conexiones.add(new Conexion(provinciaA, provinciaB, costo));
+				conexiones.add(new Conexion(locOrigen, locDestino, costo));
 			}
 		}
 	}
@@ -56,5 +56,49 @@ public class Grafo {
 	    }
 
 	    return costo;
+	}
+
+	public void calcularArbolGeneradorMinimo() {
+		List<Conexion> arbolGeneradorMinimo= new ArrayList<>();
+	    Set<Localidad> visitados = new HashSet<>();
+	    Double costoTotalGeneradorMinimo = 0.0;
+	    Localidad inicio = localidades.get(0);
+	    visitados.add(inicio);
+
+	    
+	    while (visitados.size() < localidades.size()) {
+
+	        Conexion aristaConMenorPeso = null;
+	        double menorPeso = Double.MAX_VALUE;
+
+	       
+	        for (Conexion c : conexiones) {
+	            Localidad origen = c.obtenerVerticeOrigen();
+	            Localidad destino = c.obtenerVerticeDestino();
+
+	            boolean origenVisitado = visitados.contains(origen);
+	            boolean destinoVisitado = visitados.contains(destino);
+
+	           
+	            if ((origenVisitado && !destinoVisitado) ||
+	                (!origenVisitado && destinoVisitado)) {
+
+	                if (c.obtenerPeso() < menorPeso) {
+	                    menorPeso = c.obtenerPeso();
+	                    costoTotalGeneradorMinimo = c.obtenerPeso();
+	                    aristaConMenorPeso = c;
+	                }
+	            }
+	        }
+
+	        if (aristaConMenorPeso != null) {
+	        	arbolGeneradorMinimo.add(aristaConMenorPeso);
+	            if (visitados.contains(aristaConMenorPeso.obtenerVerticeOrigen())) {
+	                visitados.add(aristaConMenorPeso.obtenerVerticeDestino());
+	            } else {
+	                visitados.add(aristaConMenorPeso.obtenerVerticeOrigen());
+	            }
+	        }
+	    }
 	}
 }

@@ -21,4 +21,8 @@ public class Negocio {
 	public void agregarLocalidades() {
 		grafo.generarAristas(costoPorKm, porcentajeExtra, costoFijo);
 	}
+
+	public void aplicarArbolGeneradorMinimo() {
+		grafo.calcularArbolGeneradorMinimo();
+	}
 }

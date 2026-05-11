@@ -58,6 +58,7 @@ public class Controlador {
 	
 	public void iniciarCalculo() {
 		negocio.agregarLocalidades();
+		negocio.aplicarArbolGeneradorMinimo();
 	}
 	
 	private boolean estaVacio(String s) {
