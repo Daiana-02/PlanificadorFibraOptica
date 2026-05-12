@@ -118,17 +118,13 @@ public class VentanaPrincipal extends JFrame {
         add(panelForm, BorderLayout.CENTER);
 
         // EVENTOS
-        btnAgregar.addActionListener(e -> onAgregar());
+        btnAgregar.addActionListener(e -> controlador.procesarDatos(txtNombre.getText(), txtProvincia.getText(), txtLatitud.getText(),txtLongitud.getText() ));
         btnLimpiar.addActionListener(e -> limpiarFormulario());
         btnVerClientes.addActionListener(e -> controlador.mostrarClientes());
         btnCalcularAGM.addActionListener(e -> { controlador.calcularAGM(txtCostoKm.getText(),txtPorcentaje.getText(),txtCostofijo.getText());});
 
     }
     
-    private void onAgregar() {
-    	boolean exito = controlador.procesarDatos(txtNombre.getText(), txtProvincia.getText(), txtLatitud.getText(), txtLongitud.getText());
-    	if (exito) limpiarFormulario();
-    }
     
     public void limpiarFormulario() {
     	txtNombre.setText("");

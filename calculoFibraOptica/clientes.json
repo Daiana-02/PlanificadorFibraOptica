@@ -52,5 +52,11 @@
     "provincia": "CABA",
     "latitud": -34.6104,
     "longitud": -58.3617
+  },
+  {
+    "nombre": "Chacabuco",
+    "provincia": "CABA",
+    "latitud": -34.6333,
+    "longitud": -58.45
   }
 ]

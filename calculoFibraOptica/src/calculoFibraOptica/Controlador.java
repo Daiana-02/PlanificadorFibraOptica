@@ -19,10 +19,10 @@ public class Controlador {
 		inicializarArchivo();
 	}
 	
-	public boolean procesarDatos(String nombre, String provincia, String latitudCadena, String longitudCadena) {
+	public void procesarDatos(String nombre, String provincia, String latitudCadena, String longitudCadena) {
 		if(estaVacio(nombre) || estaVacio(provincia) || estaVacio(latitudCadena) || estaVacio(longitudCadena )) {
 			vista.mostrarError("Todos los campos son obligatorios.");
-			return false;
+			return;
 		}
 		
 		double latitud, longitud;
@@ -31,14 +31,14 @@ public class Controlador {
 			longitud = Double.parseDouble(longitudCadena.replace(",",".").trim());
 		} catch (NumberFormatException e) {
 			vista.mostrarError("Latitud y longitud deben ser numeros validos. \n Ejemplo: -34.303722");
-			return false;
+			return;
 		}
 		DatosIngresadosPorElCliente cliente;
 		try {
 			cliente = new DatosIngresadosPorElCliente(nombre, provincia, latitud, longitud);
 		} catch (IllegalArgumentException e) {
 			vista.mostrarError(e.getMessage());
-			return false;
+			return;
 		}
 		
 		try {
@@ -46,10 +46,11 @@ public class Controlador {
 			DatosIngresadosPorElCliente.guardarEnJson();
 		} catch (IOException e) {
 			vista.mostrarError("No se pudo guardar el archivo:\n" + e.getMessage());
-			return false;
+			return ;
 		}
 		vista.mostrarInfo("Localidad guardada correctamente.\n" + cliente);
-		return true;
+		vista.limpiarFormulario();
+		return ;
 	}
 	
 	private boolean estaVacio(String s) {
