@@ -1,6 +1,8 @@
 package calculoFibraOptica;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 
 public class VentanaPrincipal extends JFrame {
@@ -128,7 +130,7 @@ public class VentanaPrincipal extends JFrame {
     	if (exito) limpiarFormulario();
     }
     
-    private void limpiarFormulario() {
+    public void limpiarFormulario() {
     	txtNombre.setText("");
     	txtProvincia.setText("");
     	txtLatitud.setText("");
@@ -138,5 +140,22 @@ public class VentanaPrincipal extends JFrame {
     	txtCostofijo.setText("");
     	txtNombre.requestFocusInWindow();
     }
+    
+    public void mostrarError(String mensaje) {
+    	JOptionPane.showMessageDialog(this, mensaje, "Error de validación", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void mostrarInfo(String mensaje) {
+    	JOptionPane.showMessageDialog(this, mensaje, "Operacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void abrirVentanaClientes(List<DatosIngresadosPorElCliente> historial) {
+    	new VentanaClientes(this, historial).setVisible(true);
+    }
+    
+    public void abrirVentanaMapa(ArrayList<Localidad> localidades, ArrayList<Arista> conexiones) {
+    	new VentanaMapa(localidades, conexiones).setVisible(true);
+    }
+    
     
 }

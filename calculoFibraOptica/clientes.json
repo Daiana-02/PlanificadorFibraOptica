@@ -46,5 +46,11 @@
     "provincia": "CABA",
     "latitud": -34.5721,
     "longitud": -58.4872
+  },
+  {
+    "nombre": "Puerto Madero",
+    "provincia": "CABA",
+    "latitud": -34.6104,
+    "longitud": -58.3617
   }
 ]

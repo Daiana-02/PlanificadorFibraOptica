@@ -1,6 +1,5 @@
 package calculoFibraOptica;
 
-import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class Controlador {
 	
 	public boolean procesarDatos(String nombre, String provincia, String latitudCadena, String longitudCadena) {
 		if(estaVacio(nombre) || estaVacio(provincia) || estaVacio(latitudCadena) || estaVacio(longitudCadena )) {
-			mostrarError("Todos los campos son obligatorios.");
+			vista.mostrarError("Todos los campos son obligatorios.");
 			return false;
 		}
 		
@@ -31,14 +30,14 @@ public class Controlador {
 			latitud = Double.parseDouble(latitudCadena.replace(",",".").trim());
 			longitud = Double.parseDouble(longitudCadena.replace(",",".").trim());
 		} catch (NumberFormatException e) {
-			mostrarError("Latitud y longitud deben ser numeros validos. \n" + "Ejemplo: -34.303722");
+			vista.mostrarError("Latitud y longitud deben ser numeros validos. \n Ejemplo: -34.303722");
 			return false;
 		}
 		DatosIngresadosPorElCliente cliente;
 		try {
 			cliente = new DatosIngresadosPorElCliente(nombre, provincia, latitud, longitud);
 		} catch (IllegalArgumentException e) {
-			mostrarError(e.getMessage());
+			vista.mostrarError(e.getMessage());
 			return false;
 		}
 		
@@ -46,10 +45,10 @@ public class Controlador {
 			guardarEnCSV(cliente);
 			DatosIngresadosPorElCliente.guardarEnJson();
 		} catch (IOException e) {
-			mostrarError("No se pudo guardar el archivo:\n" + e.getMessage());
+			vista.mostrarError("No se pudo guardar el archivo:\n" + e.getMessage());
 			return false;
 		}
-		mostrarInfo("Localidad guardada correctamente.\n" + cliente);
+		vista.mostrarInfo("Localidad guardada correctamente.\n" + cliente);
 		return true;
 	}
 	
@@ -57,13 +56,6 @@ public class Controlador {
 		return s == null || s.isBlank();
 	}
 	
-	private void mostrarError(String mensaje) {
-		JOptionPane.showMessageDialog(vista, mensaje, "Error de validacion", JOptionPane.ERROR_MESSAGE);
-	}
-	
-	private void mostrarInfo(String mensaje) {
-		JOptionPane.showMessageDialog(vista, mensaje, "Operacion exitosa", JOptionPane.INFORMATION_MESSAGE);
-	}
 	
 	private void inicializarArchivo() {
 		File archivo = new File(archivo_CSV);
@@ -72,7 +64,7 @@ public class Controlador {
 				bw.write(cabecera_CSV);
 				bw.newLine();
 			} catch (IOException e) {
-				mostrarError("No se pudo crear el archivo CSV>\n" + e.getMessage());
+				vista.mostrarError("Latitud y longitud deben ser numeros validos. \nEjemplo: -34.303722");
 			}
 		}
 	}
@@ -105,17 +97,16 @@ public class Controlador {
 	public void mostrarClientes() {
 		List<DatosIngresadosPorElCliente> historial = DatosIngresadosPorElCliente.obtenerHistorial();
 		if(historial.isEmpty()) {
-			mostrarInfo("No hay clientes registrados todavia");
+			vista.mostrarInfo("No hay localidades registradas todavia");
 			return;
 		 }
-		VentanaClientes ventana = new VentanaClientes(vista, historial);
-		ventana.setVisible(true);
+		vista.abrirVentanaClientes(historial);
 	}
 	
 	public void calcularAGM(String costoKmTexto, String porcentajeTexto, String costoFijoTexto) {
 		if (costoKmTexto.isBlank() || porcentajeTexto.isBlank() || costoFijoTexto.isBlank()) {
-			JOptionPane.showMessageDialog(vista,"Completa los campos: Costo por km, Porcentaje y Costo fijo");
-		    return;
+			vista.mostrarError("Completa los campos: Costo por km, Porcentaje y Costo fijo");		    
+			return;
 		}
 
 		double costoKm = Double.parseDouble(costoKmTexto);
@@ -145,8 +136,7 @@ public class Controlador {
 		        "Cantidad de conexiones: " + conexiones.size() + "\n" +
 		        "Costo total de la red: $" + String.format("%.2f", costoTotal);
 
-		JOptionPane.showMessageDialog(vista, mensaje);
-		VentanaMapa ventana = new VentanaMapa(localidades, conexiones);
-		ventana.setVisible(true);
+		vista.mostrarInfo(mensaje);
+		vista.abrirVentanaMapa(localidades, conexiones);
 	}
 }
