@@ -41,8 +41,8 @@ public class DatosIngresadosPorElCliente {
 	private static final List<DatosIngresadosPorElCliente> historial = new ArrayList<>();
 	
 	public DatosIngresadosPorElCliente(String nombre, String provincia, double latitud, double longitud) {
-		this.nombre = nombre;
-		this.provincia = provincia;
+		definirNombre(nombre);
+		definirProvincia(provincia);
 		definirLatitud(latitud);
 		definirLongitud(longitud);
 		
@@ -197,7 +197,7 @@ public class DatosIngresadosPorElCliente {
 	
 	public void definirNombre(String nombre) {
 		if (nombre == null || nombre.isBlank()) {
-			throw new IllegalArgumentException("El nombre del cliente no puede ser vacío");
+			throw new IllegalArgumentException("El nombre de la localidad no puede ser vacío");
 					}
 		this.nombre = nombre.trim();
 	}
@@ -257,7 +257,7 @@ public class DatosIngresadosPorElCliente {
 	
 	@Override
 	public String toString() {
-		return String.format("DatosCliente { nombre='%s, provincia='%s, latitud = %.6f, longitud =%.6f }", nombre, provincia, latitud, longitud);
+		return String.format("DatosIngresadosPorElCliente { nombre='%s, provincia='%s, latitud = %.6f, longitud =%.6f }", nombre, provincia, latitud, longitud);
 	}
 	
 	@Override

@@ -11,6 +11,11 @@ public class DatosIngresadosPorElClienteTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
+	public void testProvinciaVacioLanzaError() {		
+		new DatosIngresadosPorElCliente("Fernando", "", -34.0, -58.0);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
 	public void testLatitudFueraDeRangoLanzaError() {
 		new DatosIngresadosPorElCliente("A", "B", 100.0, -58.0); 
 	}

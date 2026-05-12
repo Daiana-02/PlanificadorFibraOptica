@@ -13,7 +13,7 @@ public class VentanaClientes extends JDialog{
 		private final DefaultTableModel modeloTabla;
 		
 		public VentanaClientes(JFrame padre,List<DatosIngresadosPorElCliente> clientes) {
-			super(padre, "Clientes registrados",true);
+			super(padre, "Localidades registradas",true);
 			modeloTabla = new DefaultTableModel(columnas,0) {
 				@Override
 				public boolean isCellEditable(int row, int col) {
@@ -31,7 +31,7 @@ public class VentanaClientes extends JDialog{
 		
 		private void initialize() {
 			setLayout(new BorderLayout(10,10));
-			JLabel lblTitulo = new JLabel("Clientes registrados", SwingConstants.CENTER);
+			JLabel lblTitulo = new JLabel("Localidades registradas", SwingConstants.CENTER);
 			lblTitulo.setFont(new Font("SansSerif", Font.BOLD,15));
 			lblTitulo.setBorder(BorderFactory.createEmptyBorder(12,0,4,0));
 			add(lblTitulo, BorderLayout.NORTH);

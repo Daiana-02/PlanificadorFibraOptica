@@ -49,7 +49,7 @@ public class Controlador {
 			mostrarError("No se pudo guardar el archivo:\n" + e.getMessage());
 			return false;
 		}
-		mostrarInfo("Cliente guardado correctamente.\n" + cliente);
+		mostrarInfo("Localidad guardada correctamente.\n" + cliente);
 		return true;
 	}
 	

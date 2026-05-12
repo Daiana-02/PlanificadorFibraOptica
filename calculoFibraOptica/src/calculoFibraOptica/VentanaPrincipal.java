@@ -57,8 +57,8 @@ public class VentanaPrincipal extends JFrame {
         // BOTONES
         btnAgregar = new JButton("Agregar");
         btnLimpiar = new JButton("Limpiar");
-        btnVerClientes = new JButton("Ver clientes registrados");
-        btnCalcularAGM = new JButton("Calcular AGM");
+        btnVerClientes = new JButton("Ver localidades registradas");
+        btnCalcularAGM = new JButton("Calcular costo de la conexión");
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 0));
         panelBotones.add(btnAgregar);

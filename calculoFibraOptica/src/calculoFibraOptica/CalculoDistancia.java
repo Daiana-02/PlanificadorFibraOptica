@@ -36,19 +36,4 @@ public class CalculoDistancia {
 	}
 	
 	
-	public static void main(String[] Argentina) {
-		double[] buenosAires = {-34.6037, -58.3816};
-		double[] cordoba = {-31.4135, -64.1811};
-		double[] mendoza = {-32.8908, -68.8272};
-		double[] salta = {-24.7859, -65.4117};
-		double[] ushuaia = {-54.8019, -68.3030};
-		
-		System.out.println("Distancias entre provincias cHEEEEEEEEEE\n");
-		System.out.println("Buenos Aires a Cordoba :" + calcularDistancia(buenosAires[0],buenosAires[1],cordoba[0],cordoba[1]));
-		System.out.println("Buenos Aires a Mendoza :" + calcularDistancia(buenosAires[0],buenosAires[1],mendoza[0],mendoza[1]));
-		System.out.println("Buenos Aires a Salta :" + calcularDistancia(buenosAires[0],buenosAires[1],salta[0],salta[1]));
-		System.out.println("Buenos Aires a Ushuaia :" + calcularDistancia(buenosAires[0],buenosAires[1],ushuaia[0],ushuaia[1]));
-		System.out.println("Cordoba a Mendoza :" + calcularDistancia(cordoba[0],cordoba[1],mendoza[0],mendoza[1]));
-		System.out.println("Salta a Ushuaia :" + calcularDistancia(salta[0],salta[1],ushuaia[0],ushuaia[1]));
-	}
 }
